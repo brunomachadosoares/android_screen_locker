@@ -6,6 +6,17 @@
     android:background="@drawable/background_car"
     android:orientation="vertical" >
 
+    <DigitalClock
+        android:id="@+id/clock"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:height="100dp"
+        android:textSize="54sp"
+        android:width="150dp"
+        android:textColor="@android:color/white" />
+
     <EditText
         android:id="@+id/editText1"
         android:layout_width="70dp"
@@ -17,7 +28,7 @@
         android:maxLength="1"
         android:visibility="invisible" >
 
-        <requestFocus />
+        <requestFocus android:layout_width="wrap_content" />
     </EditText>
 
     <EditText

@@ -1,6 +1,8 @@
 package br.com.soaresdev.screenlocker;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -69,21 +71,19 @@ public class MainActivity extends Activity {
 	    super.onActivityResult(requestCode, resultCode, intent);
 	}
 	
-//	@Override
-//	public void onAttachedToWindow() {
-//	    super.onAttachedToWindow();
-//	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);           
-//	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.w("BR_DEBUG", "Iniciando!");
-
+		
+		KeyguardManager mKeyGuardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+		KeyguardLock mLock = mKeyGuardManager.newKeyguardLock("activity_classname");
+		mLock.disableKeyguard();
+		
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
 		setContentView(R.layout.activity_main);
 
@@ -105,15 +105,7 @@ public class MainActivity extends Activity {
 				startActivityForResult(i, MainActivity.FINISH);
 			}
 		}, new IntentFilter(Intent.ACTION_SCREEN_ON));
-		
-		this.registerReceiver(new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				Log.w("BR_DEBUG_CATCH", "ACTION BOOT_COMPLETED");
-				Intent i = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(i);
-			}
-		}, new IntentFilter(Intent.ACTION_BOOT_COMPLETED));
+
 		
 		
 		Intent i = new Intent(getApplicationContext(), Locker.class);

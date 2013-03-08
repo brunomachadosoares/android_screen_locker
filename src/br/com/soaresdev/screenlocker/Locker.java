@@ -136,7 +136,6 @@ public class Locker extends Activity {
 								MainActivity.class);
 						setResult(50, intent);
 						finish();
-						// moveTaskBack();
 					} else {
 						Log.w("BR_LOCKER", "PASS NOT OK");
 						clearFields();
@@ -218,16 +217,11 @@ public class Locker extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.w("BR_LOCKER", "Iniciando!");
-		KeyguardManager mKeyGuardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-		KeyguardLock mLock = mKeyGuardManager.newKeyguardLock("activity_classname");
-		mLock.disableKeyguard();
 
 		super.onCreate(savedInstanceState);
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.locker);
 
